@@ -30,7 +30,7 @@
   function setButtonStateRunning() {
     start.classList.add('inactive');
     stop.classList.remove('inactive');
-    reset.classList.add('inactive');
+    reset.classList.remove('inactive');
   }
 
   function setButtonStateStopped() {
@@ -48,6 +48,19 @@
     setButtonStateRunning();
     startTime = Date.now();
     countUp();
+  });
+  
+  reset.addEventListener('click', () => {
+    if (reset.classList.contains('inactive') === true) {
+      return;
+    }
+    setButtonStateStopped();
+    clearTimeout(timeoutid);
+    elapsedTime += Date.now() - startTime;
+    
+    setButtonStateInitial()
+    timer.textContent = '00:00';
+    elapsedTime = 0;
   });
 
   stop.addEventListener('click', () => {
